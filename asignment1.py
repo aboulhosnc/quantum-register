@@ -151,9 +151,6 @@ print("inner product is : ", c)
  #   print(i,j)
 
 
-
-
-
 normRegister = q_register.norm()
 print ("norm of a register is ", normRegister)
 
@@ -162,5 +159,10 @@ print ("norm of a register is ", normRegister)
 tensor = quantumRegister.tensor_product(v3,v4)
 
 print("tensor product of an array is", tensor)
+
+matrix_x = [[123],[456],[789]]
+
+#matrix_y
+
 
 
