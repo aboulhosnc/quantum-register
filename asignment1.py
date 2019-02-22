@@ -1,7 +1,7 @@
 class quantumRegister:
     """ This is the doc for the class quantum Register IT is supposed to print this out for the
     assignment. """
-    def __init__(self, quebit_number, example ):
+    def __init__(self, quebit_number, example,  ):
         self.q_number = quebit_number
         self.name = example
         
@@ -27,9 +27,6 @@ class quantumRegister:
 
 
 
-msg = "How many quebits ?"
-print(msg)
-s = int(input('Enter your input : '))
 
 
 
@@ -38,9 +35,13 @@ s = int(input('Enter your input : '))
 run_loop = True
 
 while (run_loop):
+    msg = "How many quebits ?"
+    print(msg)
+    s = int(input('Enter your input : '))
+
+
     if((s<1) or (s>15)):
         print("The number you enetered was not a valid number try again")
-        s = int(input('Enter your input : '))
     else:
         run_loop = False
         print("You entered: ", s)
@@ -58,6 +59,11 @@ print("this is a test for git version control")
 print("this is a test for version control on the pc")
 
 
+z= complex(2,3)
 
+
+
+
+print (type(z))
 
 
