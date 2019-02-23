@@ -82,47 +82,27 @@ class quantumRegister:
 
 
 class LinearOperator:
-    """This is a test class for linear operator right now will fill in more"""
+    """This class is a matrix class that will alow you to do multiple things with it"""
     
-    def __init__(self,quebits = 1, two_darray = 0  ):
+    def __init__(self,n_quebits = 1, two_darray=0  ):
         """This is a test class right now nothing in it"""
-        self.n = quebits
+        self.quebit = n_quebits
         m = []
         if(two_darray != 0):
             self.matrix = two_darray
+            print("a matrix was given")
         else:
-            nq = self.n
+            nq = self.quebit
+            print("no matrix was given")
+            print("using identity matrix")
             m = [[0 for x in range(nq)] for y in range (nq)]
 
             for i in range(0,nq):
                 m[i][i] = 1
 
-        self.matrix = m
+            self.matrix = m
 
-
-    def add_Operator(self, alpha,beta, mat_x=0, mat_y=0):
-        #msg = "this is a test"
-        if(mat_x != 0):
-            matrix_x = self.matrix
-        else:
-            matrix_x = matrix_x
-        if(mat_y != 0):
-            matrix_y = self.matrix
-        else:
-            matrix_y = matrix_y
-
-
-        result_matrix = matrix_x
-
-        for x in range(len(matrix_x)):
-            for y in range(len(matrix_x[0])):
-                result_matrix[x][y] =  alpha*matrix_x[x][y] +  beta*matrix_y[x][y]
-
-        
-        
-        return result_matrix
-    
-    def outer_product(vec3, vec4):
+    def outer_product(self,vec3, vec4):
         """takes two quantum registers of the same size n and creates linear operator"""
         outer_product = []
         
@@ -136,19 +116,69 @@ class LinearOperator:
             for x in (vec3):
                 x= x*y
                 outer_product.append(x)
-        
+        self.matrix = outer_product
         return outer_product
+
+
+    def add_Operator(self, alpha,beta, mat_x=0, mat_y=0):
+        #msg = "this is a test"
+
+        if(mat_x != 0):
+            matrix_x = mat_x
+            print("there was a matrix x")
+        else:
+            matrix_x = self.matrix
+            print("there was no matrix x")
+
+        if(mat_y != 0):
+            print("there was a matrix y")
+            matrix_y = mat_y
+        else:
+            matrix_y = mat_x
+            print("there was no matrix y")
+
+        """
+        print("The self matrix is")
+        for i in (self.matrix):
+            print(i)
+        """
+        original_matrix = self.matrix
+        result_matrix = matrix_x
+
+        for x in range(len(matrix_x)):
+            for y in range(len(matrix_x[0])):
+                result_matrix[x][y] =  alpha*matrix_x[x][y] +  beta*matrix_y[x][y]
+
+        """
+        self.matrix = original_matrix
+        print("The original matrix is")
+        for i in (original_matrix):
+            print(i)
+        """    
+        return result_matrix
+        
+    
     
     def matrix_multiplication(self,register):
         """ Takes a Quantum register of size n and transforms it through this linear operator"""
-        multi_matrix = self.matrix
-        length = len(register)
-        multi_matrix = [[1 for x in range(length)] for y in range (length)]
-        change_state = register
+        #multi_matrix = (self.matrix)
+        multi_matrix_t = zip(*self.matrix)
+        print ("The transposed matrix is")
+        for i in (multi_matrix_t):
+            print(i)
 
-        #change_state = [ quantumRegister.inner_product(multi_matrix[r], V1) for r in multi_matrix]
+        #multi_matrix = [[1 for x in range(length)] for y in range (length)]
+        change_state = []
 
+        for x in (multi_matrix_t):
+            change_state.append(quantumRegister.inner_product(x,register))
+        print("the change state is")
+        for i in (change_state):
+            print(i)
         return change_state
+        
+
+    
 
  
 def conj(num):
@@ -215,10 +245,6 @@ c = quantumRegister.inner_product(v1,v2)
 print("inner product is : ", c)
 
 
-normRegister = q_register.norm()
-print ("norm of a register is ", normRegister)
-
-
 
 tensor = quantumRegister.tensor_product(v3,v4)
 
@@ -242,21 +268,67 @@ my = [[9,8,7],
 greek_a = 2
 greek_b = 3
 
-l_operator = LinearOperator(3,mx)
 
-result_m = l_operator.add_Operator(greek_a,greek_b,mx,my)
-#result_m = LinearOperator.add_Operator(greek_a,greek_b, mx, my)
+print ("if you want to initialize through the matrix pick 1")
+print ("if you want to  find it through the outher product of two registers pick another number")
+
+#user_input = int(input("Enter your choice :"))
+user_input = 1
+if(user_input == 1):
+    l_operator = LinearOperator(3,mx)
+    print("The matrix given is ")
+    for x in (l_operator.matrix):
+        print(x)
+    
+    
+    test23 = l_operator.add_Operator(greek_a,greek_b,my,my)
+    print("The result of the add operator is  matrix") 
+    for x in (test23):
+        print(x)
+
+    V1 =  [1,2,3]
+    
+    test24 = l_operator.matrix_multiplication(V1)
+    print("The changed state is ", test24)
+
+else:
+    v3 = [ 3,4]
+    v4 = [ 1,2]
+
+    print("If you initialize with an outer product instead :")
+    #l_operator = LinearOperator()
+    test22 = LinearOperator.outer_product(v3,v4)
+    print("The result of the outer product operator is  matrix") 
+    for x in (test22):
+        print(x)
+    
+    test23 = LinearOperator.add_Operator(greek_a,greek_b,mx,my)
+    print("The result of the add operator is  matrix") 
+    for x in (test23):
+        print(x)
+    
+    V1 =  [1,2,3]
+    
+    test24 = LinearOperator.matrix_multiplication(V1)
+    print("The changed state is ")
+    for x in (test24):
+        print(x)
 
 
-print("The result of the matrix is") 
-for x in (result_m):
-    print(x)
+
+
+#print("The quebits given is : ", l_operator.quebit)
 
 
 
 
-V1 =  [1,2,3,4]
 
-test24 = l_operator.matrix_multiplication(V1)
 
-print("The changed state is ", test24)
+
+
+
+
+
+
+
+
