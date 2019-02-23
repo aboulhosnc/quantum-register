@@ -71,14 +71,27 @@ class quantumRegister:
 class LinearOperator:
     """This is a test class for linear operator right now will fill in more"""
     
-    def __init__(self):
+    def __init__(self,quebits = 1, ):
         """This is a test class right now nothing in it"""
 
-    def year(self):
+    def add_Operator(alpha,beta, matrix_x, matrix_y):
         #msg = "this is a test"
-        year = 15
+
+        result_matrix = matrix_x
+
+        for x in range(len(matrix_x)):
+            for y in range(len(matrix_x[0])):
+                result_matrix[x][y] =  alpha*matrix_x[x][y] +  beta*matrix_y[x][y]
+
         
-        return int(year)
+        
+        return result_matrix
+
+
+        
+
+
+        
     
 
     
@@ -166,8 +179,23 @@ tensor = quantumRegister.tensor_product(v3,v4)
 
 print("tensor product of an array is", tensor)
 
-matrix_x = [[123],[456],[789]]
+mx = [[1,2,3],
+            [4,5,6],
+            [7,8,9]]
 
+my = [[9,8,7],
+        [6,5,4],
+        [3,2,1]]
+
+greek_a = 2
+greek_b = 3
+
+result_m = LinearOperator.add_Operator(greek_a,greek_b, mx, my)        
+     
+print("The result of the matrix is") 
+
+for x in result_m:
+            print(x)
 #matrix_y
 
 
