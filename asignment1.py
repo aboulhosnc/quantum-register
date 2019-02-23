@@ -105,39 +105,64 @@ class LinearOperator:
     def outer_product(self,vec3, vec4):
         """takes two quantum registers of the same size n and creates linear operator"""
         outer_product = []
-        
+        """
+        print("self matrix old  is ")
+        for i in (self.matrix):
+            print(i)
+        """
         for x in (vec3):
             conj(x)
         
         for y in (vec4):
             conj(y)
 
-        for y in (vec4):
-            for x in (vec3):
-                x= x*y
-                outer_product.append(x)
-        self.matrix = outer_product
+        length = len(vec3)
+        #print("length is : ",length)
+        for i in vec3:
+            multi_row = []
+            #print("row is ",multi_row)
+            for row in (vec4):
+                #print("i is ",i)
+                multi_row.append(i*row)
+            outer_product.append(multi_row)
+        
+        self.matrix = deepcopy(outer_product)
+        """
+        print("self matrix old  is ")
+        for i in (self.matrix):
+            print(i)
+        
+        
+        print("new self  matrix is ")
+        for i in (self.matrix):
+            print(i)
+        """
         return outer_product
 
 
     def add_Operator(self, alpha,beta, mat_x=0, mat_y=0):
-        #msg = "this is a test"
+        """This function adds two linear operators together to form a another one. can have scalars of the operators first"""
+        """
+        print ("self matrix is ")
+        for i in ():
+            print(i)
+        """
 
         if(mat_x != 0):
             matrix_x = mat_x
             #print("there was a matrix x")
         else:
             matrix_x = deepcopy(self.matrix)
-            #print("there was no matrix x")
+            print("there was no matrix x")
 
         if(mat_y != 0):
             #print("there was a matrix y")
             matrix_y = mat_y
         else:
             matrix_y = deepcopy(self.matrix)
-            #print("there was no matrix y")
+            print("there was no matrix y")
 
-        
+        """
         print("The self matrix is before addition is ")
         for i in (self.matrix):
             print(i)
@@ -146,21 +171,21 @@ class LinearOperator:
         print("The original matrix after not coppying reference is ")
         for i in (original_matrix):
             print(i)
-
+        """
         result_matrix = deepcopy(matrix_x)
 
-        
+        """
         print("The result matrix before addition")
         for i in (result_matrix):
             print(i)
-
+        """
 
         for x in range(len(matrix_x)):
             for y in range(len(matrix_x[0])):
                 result_matrix[x][y] =  alpha*matrix_x[x][y] +  beta*matrix_y[x][y]
 
         
-
+        """
         #self.matrix = original_matrix
         print("The original matrix after addition")
         for i in (original_matrix):
@@ -169,7 +194,7 @@ class LinearOperator:
         print("The self matrix after addition is ")
         for i in (self.matrix):
             print(i)
-
+        """
         return result_matrix
         
     
@@ -292,11 +317,22 @@ print("The permutation of the quebits are ", test)
 
 mx = [[1,2,3],
         [4,5,6],
-            [7,8,9]]
+        [7,8,9]]
 
 my = [[9,8,7],
         [6,5,4],
         [3,2,1]]
+
+mxx = [[1,2,3,4],
+        [2,4,6,8],
+        [3,6,9,12],
+        [4,8,12,16]]
+
+mxy = [[1,2,3,4],
+        [2,4,6,8],
+        [3,6,9,12],
+        [4,8,12,16]]
+
 
 greek_a = 2
 greek_b = 3
@@ -306,51 +342,59 @@ print ("if you want to initialize through the matrix pick 1")
 print ("if you want to  find it through the outher product of two registers pick another number")
 
 #user_input = int(input("Enter your choice :"))
-user_input = 1
+user_input = 2
 if(user_input == 1):
     # without a given matrix defaults to identity
-    l_operator = LinearOperator(3)
+    #l_operator = LinearOperator(3)
     #with a given matrix does not default to identity
-    #l_operator = LinearOperator(3,mx)
-    print("The matrix  used is  ")
+    l_operator = LinearOperator(3,mx)
+    # with four 4x4 matrix instead
+    l_operator = LinearOperator(4,mxx)
+    print("The matrix  used is  with option 1 ")
     for x in (l_operator.matrix):
         print(x)
     
     #If no matrixes are given then it uses the identity matrixes
-    test23 = l_operator.add_Operator(greek_a,greek_b)
+    #test23 = l_operator.add_Operator(greek_a,greek_b)
     #IF matrixes are given for the add operation
-    #test23 = l_operator.add_Operator(greek_a,greek_b,my,my)
-    print("The result of the add operator is  matrix") 
+    test23 = l_operator.add_Operator(greek_a,greek_b,my,my)
+    print("The result of the add operator is  matrix with option 1") 
     for x in (test23):
         print(x)
 
     V1 =  [1,2,3]
+
+    # with 4 quebits
+    V11 = [1,2,3,4]
     
-    test24 = l_operator.matrix_multiplication(V1)
-    print("The changed state through multiplication is ", test24)
+    test24 = l_operator.matrix_multiplication(V11)
+    print("The changed state through multiplication with option 1 is  ", test24)
 
 else:
-    v3 = [ 3,4]
-    v4 = [ 1,2]
+    v3 = [ 1,2,3,4]
+    v4 = [ 1,2,3,4]
 
-    print("If you initialize with an outer product instead :")
-    #l_operator = LinearOperator()
-    test22 = LinearOperator.outer_product(v3,v4)
-    print("The result of the outer product operator is  matrix") 
+    print("If you initialize with an outer product instead with option 2 :")
+    length = len(v3)
+    l_operator = LinearOperator(length)
+    test22 = l_operator.outer_product(v3,v4)
+    print("The result of the outer product operator is  matrix option 2") 
     for x in (test22):
         print(x)
     
-    test23 = LinearOperator.add_Operator(greek_a,greek_b,mx,my)
-    print("The result of the add operator is  matrix") 
+    print("The result of the add operator is  matrix option 2") 
+    #With no default add operation
+    #test23 = l_operator.add_Operator(greek_a,greek_b,mx,my)
+    #with default add operation
+    test23 = l_operator.add_Operator(greek_a,greek_b)
+    
     for x in (test23):
         print(x)
     
-    V1 =  [1,2,3]
+    V1 =  [1,2,3,4]
     
-    test24 = LinearOperator.matrix_multiplication(V1)
-    print("The changed state through multiplication is ")
-    for x in (test24):
-        print(x)
+    test24 = l_operator.matrix_multiplication(V1)
+    print("The changed state through multiplication is option 2", test24)
 
 
 
