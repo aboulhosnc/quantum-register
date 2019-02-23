@@ -11,6 +11,7 @@ class quantumRegister:
         if(amp != 0):
             self.amplitude = 2**amp
         else:
+            print("you did not enter an amplitude")
             msg = "default amplitude will be 0"
             print(msg)
             self.amplitude = 0
@@ -117,7 +118,7 @@ p = "Chady"
 print("You entered: ", p)
 
 #amp = int(input('Enter the amplitude: '))
-amp = 2
+amp = 0
 print("You entered: ", amp)
 
 
@@ -137,14 +138,19 @@ v2 = [complex(3,-2), complex(1,1)]
 v3 = [ 3,4]
 v4 = [ 1,2]
 
-q_register = quantumRegister(v1,s,amp)
+
+#Testing with an amplitude entered
+#q_register = quantumRegister(v1,s,amp)
+
+#Testing without an amplitude entered
+q_register = quantumRegister(v1,s)
 print(q_register.q_number)
 
 print (q_register.vec)
 
 print(q_register.amplitude)
 
-#quantumRegister.inner_product(v2,v1,v2)
+
 c = quantumRegister.inner_product(v1,v2)
 print("inner product is : ", c)
 #for i,j in zip(v1,v2):
