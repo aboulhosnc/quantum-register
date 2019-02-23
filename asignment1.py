@@ -125,23 +125,23 @@ class LinearOperator:
 
         if(mat_x != 0):
             matrix_x = mat_x
-            print("there was a matrix x")
+            #print("there was a matrix x")
         else:
             matrix_x = self.matrix
-            print("there was no matrix x")
+            #print("there was no matrix x")
 
         if(mat_y != 0):
-            print("there was a matrix y")
+            #print("there was a matrix y")
             matrix_y = mat_y
         else:
-            matrix_y = mat_x
-            print("there was no matrix y")
+            matrix_y = self.matrix
+            #print("there was no matrix y")
 
-        """
-        print("The self matrix is")
+        
+        print("The self matrix is before addition is ")
         for i in (self.matrix):
             print(i)
-        """
+        
         original_matrix = self.matrix
         result_matrix = matrix_x
 
@@ -149,12 +149,12 @@ class LinearOperator:
             for y in range(len(matrix_x[0])):
                 result_matrix[x][y] =  alpha*matrix_x[x][y] +  beta*matrix_y[x][y]
 
-        """
+        
         self.matrix = original_matrix
-        print("The original matrix is")
-        for i in (original_matrix):
+        print("The original matrix after addition is ")
+        for i in (self.matrix):
             print(i)
-        """    
+
         return result_matrix
         
     
@@ -162,34 +162,37 @@ class LinearOperator:
     def matrix_multiplication(self,register):
         """ Takes a Quantum register of size n and transforms it through this linear operator"""
         multi_matrix = (self.matrix)
-        #multi_matrix_t =map(list, zip(*self.matrix))
-        t_matrix =  zip(*matrix)
-        #[[m[j][i] for j in range(len(m))] for i in range(len(m[0]))] 
-        """
-        multi_t = []
-        for i in range(len(multi_matrix)):
-            for j in range (len(multi_matrix[0])):
-                multi_t[j][i] = multi_matrix[i][j]
-        """
         
+        print("Linear operator is")
+        for i in multi_matrix:
+            print (i)
+        
+        
+        multi_t = []
 
-        print ("The transposed matrix is")
-        for i in (multi_t):
+        for i in range(len(multi_matrix[0])):
+            multi_row = []
+            for row in multi_matrix:
+                multi_row.append(row[i])
+            multi_t.append(multi_row)
+        
+        """
+        print("multi_t matrix is")
+        for i in multi_t:
             print(i)
-
-        rez = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]))] 
-        print("\n") 
-        for row in rez: 
-	        print(row) 
-
-        #multi_matrix = [[1 for x in range(length)] for y in range (length)]
+        
+        t_test = [[multi_matrix[j][i] for j in range(len(multi_matrix))] for i in range (len(multi_matrix[0]))]
+        t_test = [[multi_matrix[j][i] for j in range(len(multi_matrix))] for i in range (len(multi_matrix[0]))]
+        print("t_test matrix")
+        print(t_test)
+        for i in t_test:
+            print(i)
+        """    
         change_state = []
 
-        for x in (multi_matrix_t):
+        for x in (multi_t):
             change_state.append(quantumRegister.inner_product(x,register))
-        print("the change state is")
-        for i in (change_state):
-            print(i)
+
         return change_state
         
 
@@ -290,13 +293,18 @@ print ("if you want to  find it through the outher product of two registers pick
 #user_input = int(input("Enter your choice :"))
 user_input = 1
 if(user_input == 1):
-    l_operator = LinearOperator(3,mx)
-    print("The matrix given is ")
+    # without a given matrix defaults to identity
+    l_operator = LinearOperator(3)
+    #with a given matrix does not default to identity
+    #l_operator = LinearOperator(3,mx)
+    print("The matrix  used is  ")
     for x in (l_operator.matrix):
         print(x)
     
-    
-    test23 = l_operator.add_Operator(greek_a,greek_b,my,my)
+    #If no matrixes are given then it uses the identity matrixes
+    test23 = l_operator.add_Operator(greek_a,greek_b)
+    #IF matrixes are given for the add operation
+    #test23 = l_operator.add_Operator(greek_a,greek_b,my,my)
     print("The result of the add operator is  matrix") 
     for x in (test23):
         print(x)
@@ -304,7 +312,7 @@ if(user_input == 1):
     V1 =  [1,2,3]
     
     test24 = l_operator.matrix_multiplication(V1)
-    print("The changed state is ", test24)
+    print("The changed state through multiplication is ", test24)
 
 else:
     v3 = [ 3,4]
@@ -325,7 +333,7 @@ else:
     V1 =  [1,2,3]
     
     test24 = LinearOperator.matrix_multiplication(V1)
-    print("The changed state is ")
+    print("The changed state through multiplication is ")
     for x in (test24):
         print(x)
 
