@@ -1,5 +1,5 @@
 import cmath
-
+from copy import deepcopy
 
 class quantumRegister:
     """ This is the doc for the class quantum Register IT is supposed to print this out for the
@@ -127,14 +127,14 @@ class LinearOperator:
             matrix_x = mat_x
             #print("there was a matrix x")
         else:
-            matrix_x = self.matrix
+            matrix_x = deepcopy(self.matrix)
             #print("there was no matrix x")
 
         if(mat_y != 0):
             #print("there was a matrix y")
             matrix_y = mat_y
         else:
-            matrix_y = self.matrix
+            matrix_y = deepcopy(self.matrix)
             #print("there was no matrix y")
 
         
@@ -142,16 +142,31 @@ class LinearOperator:
         for i in (self.matrix):
             print(i)
         
-        original_matrix = self.matrix
-        result_matrix = matrix_x
+        original_matrix = deepcopy(self.matrix)
+        print("The original matrix after not coppying reference is ")
+        for i in (original_matrix):
+            print(i)
+
+        result_matrix = deepcopy(matrix_x)
+
+        
+        print("The result matrix before addition")
+        for i in (result_matrix):
+            print(i)
+
 
         for x in range(len(matrix_x)):
             for y in range(len(matrix_x[0])):
                 result_matrix[x][y] =  alpha*matrix_x[x][y] +  beta*matrix_y[x][y]
 
         
-        self.matrix = original_matrix
-        print("The original matrix after addition is ")
+
+        #self.matrix = original_matrix
+        print("The original matrix after addition")
+        for i in (original_matrix):
+            print(i)
+
+        print("The self matrix after addition is ")
         for i in (self.matrix):
             print(i)
 
