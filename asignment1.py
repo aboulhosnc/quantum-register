@@ -9,7 +9,8 @@ class quantumRegister:
         self.vec  = vector
         
         if(amp != 0):
-            self.amplitude = 2**amp
+            self.amplitude = 1/ (cmath.sqrt(2**amp))
+            #print("The amplitude is :", self.amplitude)
         else:
             print("you did not enter an amplitude")
             msg = "default amplitude will be 0"
@@ -138,31 +139,12 @@ class LinearOperator:
 
         return change_state
 
-
-        
-
-
-        
-
-
-        
-    
-
-    
+ 
 def conj(num):
     """checks if a number is a complex number or not. If it is  then it does the complex conjugate of it"""
     if(isinstance(num,complex)):
         num = num.conjugate()
         
-    
-        
-    
-
-   
-     
-         
-    
-
 
 run_loop = True
 
@@ -177,16 +159,16 @@ while (run_loop):
         print("The number you enetered was not a valid number try again")
     else:
         run_loop = False
-        print("You entered: ", s)
+        print("You entered quebits of : ", s)
 
 
 #p = input('Enter in your name : ')
 p = "Chady"
-print("You entered: ", p)
+print("You name is : ", p)
 
 #amp = int(input('Enter the amplitude: '))
-amp = 0
-print("You entered: ", amp)
+amp = 2
+print("You entered an amplitude of  : ", amp)
 
 
 
@@ -207,15 +189,15 @@ v4 = [ 1,2]
 
 
 #Testing with an amplitude entered
-#q_register = quantumRegister(v1,s,amp)
+q_register = quantumRegister(v1,s,amp)
 
 #Testing without an amplitude entered
-q_register = quantumRegister(v1,s)
+#q_register = quantumRegister(v1,s)
 print(q_register.q_number)
 
-print (q_register.vec)
+print ("The vector you entered is ",q_register.vec)
 
-print(q_register.amplitude)
+print("The amplitude is :",q_register.amplitude)
 
 
 c = quantumRegister.inner_product(v1,v2)
@@ -263,8 +245,3 @@ V1 =  [1,2,3,4]
 test24 = LinearOperator.matrix_multiplication(V1)
 
 print("The changed state is ", test24)
-
-
-
-#matrix multiplication
-
