@@ -89,20 +89,9 @@ class quantumRegister:
         
         print(" quebit number is ",quebits)
         
-        """
-        for i in range(0,quebits):
-            
-            multi_row = [0] * (quebits -1)
-            multi_row.insert(i,1)
-            if(multi_row == register):
-                print("it matched")
-                multi_row = [x *amplitude for x in multi_row]
-                print(multi_row)
-            else:
-                print(multi_row)
-            """
-        high = 0
-        highI = 0
+    
+        #high = 0
+        #highI = 0
         measurement = 0
         allState = []
         for i in Y:
@@ -114,14 +103,7 @@ class quantumRegister:
             allState.append(realN)
             allState.append(imagN)
             ampimag = amplitude * imagN
-            """
-            #imaginary = im
-            print("whole number is ", i)
-            print("real number is ", realN)
-            print("imaginary number is ", imagN)
-            print("real number with amp is ", ampReal)
-            print("imaginary number with amp is ", ampimag)
-            """
+           
 
         for i in allState:
             print(i) 
@@ -172,11 +154,7 @@ class LinearOperator:
     def outer_product(self,vec3, vec4):
         """takes two quantum registers of the same size n and creates linear operator"""
         outer_product = []
-        """
-        print("self matrix old  is ")
-        for i in (self.matrix):
-            print(i)
-        """
+      
         for x in (vec3):
             conj(x)
         
@@ -194,16 +172,7 @@ class LinearOperator:
             outer_product.append(multi_row)
         
         self.matrix = deepcopy(outer_product)
-        """
-        print("self matrix old  is ")
-        for i in (self.matrix):
-            print(i)
-        
-        
-        print("new self  matrix is ")
-        for i in (self.matrix):
-            print(i)
-        """
+       
         return outer_product
 
 
@@ -270,23 +239,7 @@ def conj(num):
     if(isinstance(num,complex)):
         num = num.conjugate()
         
-"""
-run_loop = True
 
-while (run_loop):
-    msg = "How many quebits ?"
-    print(msg)  
-    #s = int(input('Enter your input : '))
-    s = 2
-    #s.conjugate()
-
-    if((s<1) or (s>15)):
-        print("The number you enetered was not a valid number try again")
-    else:
-        run_loop = False
-        print("You entered quebits of : ", s)
-
-"""
 #p = input('Enter in your name : ')
 p = "Chady"
 print("You name is : ", p)
