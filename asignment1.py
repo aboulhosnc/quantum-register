@@ -63,6 +63,12 @@ class quantumRegister:
 
     def measurement(self):
         """ measures in a computational basis"""
+    
+    def permute(v6):
+        """This will change the state of the register to the new numbeing of quebits"""
+        test = v6.pop(len(v6)-1)
+        v6.insert(0,test)
+        return v6
         
     
 
@@ -179,8 +185,15 @@ tensor = quantumRegister.tensor_product(v3,v4)
 
 print("tensor product of an array is", tensor)
 
+
+v6 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+
+test = quantumRegister.permute(v6)
+
+print("The permutation of the quebits are ", test) 
+
 mx = [[1,2,3],
-            [4,5,6],
+        [4,5,6],
             [7,8,9]]
 
 my = [[9,8,7],
@@ -193,10 +206,18 @@ greek_b = 3
 result_m = LinearOperator.add_Operator(greek_a,greek_b, mx, my)        
      
 print("The result of the matrix is") 
+print(result_m)
 
-for x in result_m:
-            print(x)
-#matrix_y
+           
+
+v = [1,2]
+G = [3,4]
 
 
+
+"""
+for x in range(len(lx)):
+            for y in range(len(lx[0])):
+                result_mul_m[x][y] =  lx[x][y] * ly[x][y]
+"""
 
