@@ -142,11 +142,7 @@ class LinearOperator:
 
     def add_Operator(self, alpha,beta, mat_x=0, mat_y=0):
         """This function adds two linear operators together to form a another one. can have scalars of the operators first"""
-        """
-        print ("self matrix is ")
-        for i in ():
-            print(i)
-        """
+ 
 
         if(mat_x != 0):
             matrix_x = mat_x
@@ -162,39 +158,14 @@ class LinearOperator:
             matrix_y = deepcopy(self.matrix)
             print("there was no matrix y")
 
-        """
-        print("The self matrix is before addition is ")
-        for i in (self.matrix):
-            print(i)
-        
-        original_matrix = deepcopy(self.matrix)
-        print("The original matrix after not coppying reference is ")
-        for i in (original_matrix):
-            print(i)
-        """
         result_matrix = deepcopy(matrix_x)
 
-        """
-        print("The result matrix before addition")
-        for i in (result_matrix):
-            print(i)
-        """
 
         for x in range(len(matrix_x)):
             for y in range(len(matrix_x[0])):
                 result_matrix[x][y] =  alpha*matrix_x[x][y] +  beta*matrix_y[x][y]
 
-        
-        """
-        #self.matrix = original_matrix
-        print("The original matrix after addition")
-        for i in (original_matrix):
-            print(i)
 
-        print("The self matrix after addition is ")
-        for i in (self.matrix):
-            print(i)
-        """
         return result_matrix
         
     
@@ -215,19 +186,7 @@ class LinearOperator:
             for row in multi_matrix:
                 multi_row.append(row[i])
             multi_t.append(multi_row)
-        
-        """
-        print("multi_t matrix is")
-        for i in multi_t:
-            print(i)
-        
-        t_test = [[multi_matrix[j][i] for j in range(len(multi_matrix))] for i in range (len(multi_matrix[0]))]
-        t_test = [[multi_matrix[j][i] for j in range(len(multi_matrix))] for i in range (len(multi_matrix[0]))]
-        print("t_test matrix")
-        print(t_test)
-        for i in t_test:
-            print(i)
-        """    
+    
         change_state = []
 
         for x in (multi_t):
@@ -395,21 +354,6 @@ else:
     
     test24 = l_operator.matrix_multiplication(V1)
     print("The changed state through multiplication is option 2", test24)
-
-
-
-
-#print("The quebits given is : ", l_operator.quebit)
-
-
-
-
-
-
-
-
-
-
 
 
 
