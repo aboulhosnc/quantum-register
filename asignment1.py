@@ -1,10 +1,22 @@
 import cmath
+import sys
+import random
 from copy import deepcopy
 
 class quantumRegister:
     """ This is the doc for the class quantum Register IT is supposed to print this out for the
     assignment. """
     def __init__(self,vector, quebit_number = 1,   amp = 0,  ):
+
+        if(quebit_number < 1):
+            print("quebit too low default is 1")
+            quebit_number = 1
+        elif (quebit_number > 15):
+            quebit_number = 15
+            print("quebit was too high quebit will be 15")
+        else:
+            pass
+
         self.q_number = quebit_number
         self.vec  = vector
         
@@ -70,6 +82,61 @@ class quantumRegister:
 
     def measurement(self):
         """ measures in a computational basis"""
+
+        quebits = self.q_number
+        Y = self.vec
+        amplitude = self.amplitude
+        
+        print(" quebit number is ",quebits)
+        
+        """
+        for i in range(0,quebits):
+            
+            multi_row = [0] * (quebits -1)
+            multi_row.insert(i,1)
+            if(multi_row == register):
+                print("it matched")
+                multi_row = [x *amplitude for x in multi_row]
+                print(multi_row)
+            else:
+                print(multi_row)
+            """
+        high = 0
+        highI = 0
+        measurement = 0
+        allState = []
+        for i in Y:
+            #z = (Y.real, Y.imag)
+            imagN = i.imag
+            realN = i.real
+            ampReal = amplitude * realN
+            
+            allState.append(realN)
+            allState.append(imagN)
+            ampimag = amplitude * imagN
+            """
+            #imaginary = im
+            print("whole number is ", i)
+            print("real number is ", realN)
+            print("imaginary number is ", imagN)
+            print("real number with amp is ", ampReal)
+            print("imaginary number with amp is ", ampimag)
+            """
+
+        for i in allState:
+            print(i) 
+        
+        randN = random.randint(0,len(allState))
+        measurement = allState[randN]
+        print
+        print("measurement is ",measurement)   
+        print("") 
+        
+        #to exit afterwards
+        #sys.exit()
+       
+        
+        
     
     def permute(v6):
         """This will change the state of the register to the new numbeing of quebits"""
@@ -203,7 +270,7 @@ def conj(num):
     if(isinstance(num,complex)):
         num = num.conjugate()
         
-
+"""
 run_loop = True
 
 while (run_loop):
@@ -219,7 +286,7 @@ while (run_loop):
         run_loop = False
         print("You entered quebits of : ", s)
 
-
+"""
 #p = input('Enter in your name : ')
 p = "Chady"
 print("You name is : ", p)
@@ -228,7 +295,8 @@ print("You name is : ", p)
 amp = 2
 print("You entered an amplitude of  : ", amp)
 
-
+s = 3
+print("You entered quebits of : ", s)
 
 
 z= complex(2,3)
@@ -247,6 +315,7 @@ v4 = [ 1,2]
 
 
 #Testing with an amplitude entered
+#v1 = [complex(1,-1), complex(0,-1)
 q_register = quantumRegister(v1,s,amp)
 
 #Testing without an amplitude entered
@@ -256,6 +325,8 @@ print(q_register.q_number)
 print ("The vector you entered is ",q_register.vec)
 
 print("The amplitude is :",q_register.amplitude)
+
+q_register.measurement()
 
 
 c = quantumRegister.inner_product(v1,v2)
