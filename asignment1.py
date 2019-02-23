@@ -161,11 +161,26 @@ class LinearOperator:
     
     def matrix_multiplication(self,register):
         """ Takes a Quantum register of size n and transforms it through this linear operator"""
-        #multi_matrix = (self.matrix)
-        multi_matrix_t = zip(*self.matrix)
+        multi_matrix = (self.matrix)
+        #multi_matrix_t =map(list, zip(*self.matrix))
+        t_matrix =  zip(*matrix)
+        #[[m[j][i] for j in range(len(m))] for i in range(len(m[0]))] 
+        """
+        multi_t = []
+        for i in range(len(multi_matrix)):
+            for j in range (len(multi_matrix[0])):
+                multi_t[j][i] = multi_matrix[i][j]
+        """
+        
+
         print ("The transposed matrix is")
-        for i in (multi_matrix_t):
+        for i in (multi_t):
             print(i)
+
+        rez = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]))] 
+        print("\n") 
+        for row in rez: 
+	        print(row) 
 
         #multi_matrix = [[1 for x in range(length)] for y in range (length)]
         change_state = []
