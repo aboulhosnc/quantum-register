@@ -53,6 +53,12 @@ class quantumRegister:
         """Takes two registers with n = n1 and n = n2, and produces a register with n1+n2 qubits, in the correct state"""
         tensor_product = []
         
+        for x in (vec3):
+            conj(x)
+        
+        for y in (vec4):
+            conj(y)
+
         for y in (vec4):
             for x in (vec3):
                 x= x*y
