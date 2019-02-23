@@ -87,7 +87,7 @@ class LinearOperator:
     def __init__(self,quebits = 1, two_darray = 0  ):
         """This is a test class right now nothing in it"""
         self.n = quebits
-
+        m = []
         if(two_darray != 0):
             self.matrix = two_darray
         else:
@@ -96,11 +96,21 @@ class LinearOperator:
 
             for i in range(0,nq):
                 m[i][i] = 1
+
         self.matrix = m
 
 
-    def add_Operator(alpha,beta, matrix_x, matrix_y):
+    def add_Operator(self, alpha,beta, mat_x=0, mat_y=0):
         #msg = "this is a test"
+        if(mat_x != 0):
+            matrix_x = self.matrix
+        else:
+            matrix_x = matrix_x
+        if(mat_y != 0):
+            matrix_y = self.matrix
+        else:
+            matrix_y = matrix_y
+
 
         result_matrix = matrix_x
 
@@ -129,13 +139,14 @@ class LinearOperator:
         
         return outer_product
     
-    def matrix_multiplication(register):
+    def matrix_multiplication(self,register):
         """ Takes a Quantum register of size n and transforms it through this linear operator"""
-
+        multi_matrix = self.matrix
         length = len(register)
         multi_matrix = [[1 for x in range(length)] for y in range (length)]
         change_state = register
-        change_state = [quantumRegister.inner_product(multi_matrix[1], V1) for r in multi_matrix]
+
+        #change_state = [ quantumRegister.inner_product(multi_matrix[r], V1) for r in multi_matrix]
 
         return change_state
 
@@ -231,8 +242,12 @@ my = [[9,8,7],
 greek_a = 2
 greek_b = 3
 
-result_m = LinearOperator.add_Operator(greek_a,greek_b, mx, my)        
-     
+l_operator = LinearOperator(3,mx)
+
+result_m = l_operator.add_Operator(greek_a,greek_b,mx,my)
+#result_m = LinearOperator.add_Operator(greek_a,greek_b, mx, my)
+
+
 print("The result of the matrix is") 
 for x in (result_m):
     print(x)
@@ -242,6 +257,6 @@ for x in (result_m):
 
 V1 =  [1,2,3,4]
 
-test24 = LinearOperator.matrix_multiplication(V1)
+test24 = l_operator.matrix_multiplication(V1)
 
 print("The changed state is ", test24)
