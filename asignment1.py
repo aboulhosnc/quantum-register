@@ -83,8 +83,20 @@ class quantumRegister:
 class LinearOperator:
     """This is a test class for linear operator right now will fill in more"""
     
-    def __init__(self,quebits = 1, ):
+    def __init__(self,quebits = 1, two_darray = 0  ):
         """This is a test class right now nothing in it"""
+        self.n = quebits
+
+        if(two_darray != 0):
+            self.matrix = two_darray
+        else:
+            nq = self.n
+            m = [[0 for x in range(nq)] for y in range (nq)]
+
+            for i in range(0,nq):
+                m[i][i] = 1
+        self.matrix = m
+
 
     def add_Operator(alpha,beta, matrix_x, matrix_y):
         #msg = "this is a test"
@@ -98,6 +110,36 @@ class LinearOperator:
         
         
         return result_matrix
+    
+    def outer_product(vec3, vec4):
+        """takes two quantum registers of the same size n and creates linear operator"""
+        outer_product = []
+        
+        for x in (vec3):
+            conj(x)
+        
+        for y in (vec4):
+            conj(y)
+
+        for y in (vec4):
+            for x in (vec3):
+                x= x*y
+                outer_product.append(x)
+        
+        return outer_product
+    
+    def matrix_multiplication(register):
+        """ Takes a Quantum register of size n and transforms it through this linear operator"""
+
+        length = len(register)
+        multi_matrix = [[1 for x in range(length)] for y in range (length)]
+        change_state = register
+        change_state = [quantumRegister.inner_product(multi_matrix[1], V1) for r in multi_matrix]
+
+        return change_state
+
+
+        
 
 
         
@@ -178,8 +220,6 @@ print(q_register.amplitude)
 
 c = quantumRegister.inner_product(v1,v2)
 print("inner product is : ", c)
-#for i,j in zip(v1,v2):
- #   print(i,j)
 
 
 normRegister = q_register.norm()
@@ -212,18 +252,19 @@ greek_b = 3
 result_m = LinearOperator.add_Operator(greek_a,greek_b, mx, my)        
      
 print("The result of the matrix is") 
-print(result_m)
-
-           
-
-v = [1,2]
-G = [3,4]
+for x in (result_m):
+    print(x)
 
 
 
-"""
-for x in range(len(lx)):
-            for y in range(len(lx[0])):
-                result_mul_m[x][y] =  lx[x][y] * ly[x][y]
-"""
+
+V1 =  [1,2,3,4]
+
+test24 = LinearOperator.matrix_multiplication(V1)
+
+print("The changed state is ", test24)
+
+
+
+#matrix multiplication
 
